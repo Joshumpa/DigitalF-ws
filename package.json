@@ -1,0 +1,38 @@
+{
+  "name": "digitalf-ws",
+  "version": "1.0.0",
+  "description": "paquetes de otro intento de DF",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start:client & npm run start:server",
+    "start:client": "parcel src/index.html",
+    "start:server": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshumpa/DigitalF-ws.git"
+  },
+  "keywords": [
+    "Websockets"
+  ],
+  "author": "Joshua Marinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joshumpa/DigitalF-ws/issues"
+  },
+  "homepage": "https://github.com/Joshumpa/DigitalF-ws#readme",
+  "dependencies": {
+    "nodemon": "^2.0.2",
+    "os-utils": "0.0.14",
+    "parcel": "^1.12.4",
+    "random-int": "^2.0.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.12.0",
+    "react-gauge-chart": "^0.2.5",
+    "react-table": "^7.6.0",
+    "react-table-v6": "^6.8.6",
+    "recharts": "^2.0.0-beta.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  }
+}
