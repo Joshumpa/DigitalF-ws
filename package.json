@@ -4,7 +4,7 @@
   "description": "paquetes de otro intento de DF",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start:client & npm run start:server",
+    "start": "npm run start:client && npm run start:server",
     "start:client": "parcel src/index.html",
     "start:server": "nodemon src/server.js"
   },
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/Joshumpa/DigitalF-ws#readme",
   "dependencies": {
+    "express": "^4.17.1",
+    "mssql": "^6.2.3",
     "nodemon": "^2.0.2",
     "os-utils": "0.0.14",
     "parcel": "^1.12.4",

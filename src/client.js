@@ -7,11 +7,10 @@ import 'react-table-v6/react-table.css'
 
 import GaugeChart from 'react-gauge-chart'
 
-//import GaugeChart from 'react-gauge-chart'
-
 const socket = io('http://localhost:3000', {
     transports: ['websocket', 'polling']
 });
+
 const App = ({ }) => {
 
     const [data, setData] = useState([]);
