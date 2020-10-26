@@ -2,116 +2,89 @@ import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
-import JustGauge from 'justgage';
+//import createGauge from './scripts';
+let JustGauge = require('justgage');
+
+const createGauge = (properties) => {
+
+    //id = ariable, value, title = variable, label = measure, max, min, not- satisfactory
+    let gauge = new JustGage({
+        id: properties.Variable,
+        value: properties.Value,
+        width: 520,
+        height: 520,
+        min: 0,
+        max: properties.Max,
+        humanFriendlyDecimal: 0,
+        title: properties.Variable,
+        label: properties.Measure,
+        pointer: true,
+        pointerOptions: {
+            toplength: -13,
+            bottomlength: 10,
+            bottomwidth: 12,
+            color: '#8e8e93',
+            stroke: '#ffffff',
+            stroke_width: 3,
+            stroke_linecap: 'round'
+        },
+        customSectors: {
+            ranges: [{
+                color: '#00CC22',
+                lo: properties.Min,
+                hi: properties.Max
+            },
+            {
+                color: '#E6E600',
+                lo: properties.Min,
+                hi: properties.NotSat,
+            },
+            {
+                color: '#E60000',
+                lo: properties.NotSat,
+                hi: 0,
+            }]
+        },
+        counter: true,
+        gaugeWidthScale: 0.75,
+        formatNumber: true,
+        hideInnerShadow: true
+    });
+
+    return gauge
+
+}
 
 const socket = io('http://localhost:3000', {
     transports: ['websocket', 'polling']
 });
 
-let dflt = {
-    pointer: true,
-    pointerOptions: {
-        toplength: -13,
-        bottomlength: 10,
-        bottomwidth: 12,
-        color: '#8e8e93',
-        stroke: '#ffffff',
-        stroke_width: 3,
-        stroke_linecap: 'round'
-    },
-    levelColors: [
-        '#E60000',
-        '#E6E600',
-        '#00CC22'
-    ],
-    counter: true,
-    gaugeWidthScale: 0.75,
-    formatNumber: true,
-    hideInnerShadow: true
-}
 
-var gg1 = new JustGage({
-    height: 200,
-    id: "gg1",
-    value: 25.21,
-    defaults: dflt,
-    min: 0,
-    max: 30,
-    title: "Cycle",
-    label: "Seconds",
-});
-var gg2 = new JustGage({
-    id: "gg2",
-    value: 2.62,
-    defaults: dflt,
-    min: 0,
-    max: 4,
-    title: "Recovery Time",
-    label: "Seconds",
-});
-var gg3 = new JustGage({
-    id: "gg3",
-    value: 711.49,
-    defaults: dflt,
-    min: 0,
-    max: 800,
-    title: "Peak Pressure",
-    label: "PSI",
-});
-var gg4 = new JustGage({
-    id: "gg4",
-    value: 0.60,
-    defaults: dflt,
-    min: 0,
-    max: 1,
-    title: "Cushion",
-    label: "IN",
-});
-var gg5 = new JustGage({
-    id: "gg5",
-    value: 0.63,
-    defaults: dflt,
-    min: 0.00,
-    max: 0.80,
-    title: "Inyection Time",
-    label: "Seconds",
-});
-
-const App = ({ }) => {
+function App() {
 
     let [data, setData] = useState([]);
 
+
     useEffect(() => {
+        let isMounted = true;
         socket.on('infoHydra', data => {
-            setData(data);
-        });
-    }, []);
 
+            let gauges = {};
+            if (isMounted) setData(data);
+            data.forEach(properties => {
+                gauges.push(createGauge(properties));
+            });
+        })
+        return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
+    });
 
-    /* const columns = [
-        { Header: 'Time', accessor: 'Time' },
-        { Header: 'Spark', accessor: 'Spark' },
-        { Header: 'Machine', accessor: 'Machine' },
-        { Header: 'Variable', accessor: 'Variable' },
-        { Header: 'Value', accessor: 'Value' }
-    ]*/
-
-    if (data.length > 0) {
-        data = data[0]
-    }
-
-
-
-    /* console.log(data);
-    
-
-    let value = 0;
-    */
+    console.log(data);
 
     if (typeof data[0] !== 'undefined') {
-        let cycle = data.find(element => element.Variable === 'Cycle');
-        gg1.refresh(cycle.Value);
-        //console.log(cycle.Value)
+
+
+
+        //gg1.refresh(cycle.Value);
     }
 
     return (
@@ -122,8 +95,6 @@ const App = ({ }) => {
                 data={data}
                 columns={columns}
             /> */}
-
-
 
         </div>
 
