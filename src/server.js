@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const server = require('http').createServer();
 var sql = require('mssql');
 
@@ -15,6 +16,28 @@ const io = require('socket.io')(server, {
 
 let c = 0;
 //cuando haya una conexion con el servidor...
+=======
+var express = require('express');
+var app = express();
+
+var sql = require('mssql');
+
+sql.connect("mssql://spark:spark@MXL30INBOWHD7Y2/SparkDB-IND").then(function () {
+    // Query 
+    new sql.Request().query('select * from HydraDataL3_Catalog').then(function (recordset) {
+        console.dir(recordset);
+    }).catch(function (err) {
+        console.dir("Error, Query no estructurada correctamente")
+    });
+});
+
+
+/*const io = require('socket.io')(server, {
+    transports: ['websocket', 'polling']
+});
+
+
+>>>>>>> 693cfc13a8fa53b417db464c5df9985522dcdd56
 io.on('connection', client => {
 
     //console.dir("Nuevo cliente conectado")
@@ -23,6 +46,7 @@ io.on('connection', client => {
 
     //realizar funcion con un intervalo de 2000 milisegundos
     setInterval(() => {
+<<<<<<< HEAD
 
         if (status) {
 
@@ -59,3 +83,30 @@ io.on('connection', client => {
 
 //en el puerto
 server.listen(3000);
+=======
+        client.emit('rnddata', data = [
+            {
+                nombr: "Maquina 1",
+                d1: randomInt(0, 100),
+                d2: randomInt(0, 100),
+            },
+            {
+                nombr: "Maquina 2",
+                d1: randomInt(0, 100),
+                d2: randomInt(0, 100),
+            }, {
+                nombr: "Maquina 3",
+                d1: randomInt(0, 100),
+                d2: randomInt(0, 100),
+            }, {
+                nombr: "Maquina 4",
+                d1: randomInt(0, 100),
+                d2: randomInt(0, 100),
+            }
+
+        ]);
+    }, 2000);
+});
+
+server.listen(3000);*/
+>>>>>>> 693cfc13a8fa53b417db464c5df9985522dcdd56

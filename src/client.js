@@ -2,13 +2,33 @@ import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import JustGauge from 'justgage';
 //import '../node_modules/react-canvas-gauges/dist/RadialGauge.js';
 //import RadialGauge from 'canvas-gauges'
+=======
+import ReactTable from 'react-table-v6'
+import 'react-table-v6/react-table.css'
+
+import GaugeChart from 'react-gauge-chart'
+>>>>>>> 693cfc13a8fa53b417db464c5df9985522dcdd56
 
 const socket = io('http://localhost:3000', {
     transports: ['websocket', 'polling']
 });
+<<<<<<< HEAD
+=======
+
+const App = ({ }) => {
+
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        socket.on('rnddata', data => {
+            setData(data);
+        });
+    }, []);
+>>>>>>> 693cfc13a8fa53b417db464c5df9985522dcdd56
 
 function App() {
 
